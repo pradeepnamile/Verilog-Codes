@@ -1,0 +1,39 @@
+CODE:
+module and_gate3(c,a,b);
+  input a,b;
+  output reg c;
+  always @ (a or b)
+    begin
+      if(a==1'b1 && b==1'b1)
+        begin
+          c=1'b1;
+        end
+      else
+        c=1'b0;
+    end
+endmodule
+
+TESTBENCH:
+module and_gate3_tb();
+  reg x,y;
+  wire z;
+  and_gate3 dut (z,x,y);
+  initial
+    begin
+      $dumpfile("and_gate3.vcd");
+      $dumpvars();
+      $monitor($time,"x=%b,y=%b,z=%b",x,y,z);
+      #5 x=1'b0; y=1'b0;
+      #5 x=1'b0; y=1'b1;
+      #5 x=1'b1; y=1'b0;
+      #5 x=1'b1; y=1'b1;
+      #5 $finish;
+    end
+endmodule
+
+RESULT:
+0x=x,y=x,z=x                  
+5x=0,y=0,z=0
+10x=0,y=1,z=0
+15x=1,y=0,z=0
+20x=1,y=1,z=1
