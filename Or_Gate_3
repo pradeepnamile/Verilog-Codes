@@ -1,0 +1,44 @@
+CODE:
+
+module or_gate3(c,a,b);
+  input a,b;
+  output reg c;
+  always @ (a or b)
+    begin
+      if(a==1'b0 && b==1'b0)
+        begin
+          c=1'b0;
+        end
+      else
+        c=1'b1;
+    end
+endmodule
+
+TESTBENCH:
+
+module or_gate3_tb();
+  reg x,y;
+  wire z;
+  or_gate3 dut (z,x,y);
+  initial
+    begin
+      $dumpfile("or_gate3.vcd");
+      $dumpvars();
+      $display("a b|c");
+      $monitor("%b %b | %b",x,y,z);
+      #5 x=1'b0; y=1'b0;
+      #5 x=1'b0; y=1'b1;
+      #5 x=1'b1; y=1'b0;
+      #5 x=1'b1; y=1'b1;
+      #5 $finish;
+    end
+endmodule
+
+RESULT:
+
+a b|c
+x x | x
+0 0 | 0
+0 1 | 1
+1 0 | 1
+1 1 | 1
