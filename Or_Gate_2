@@ -1,0 +1,36 @@
+CODE:
+
+module or_gate2(c,a,b);
+  input a,b;
+  output c;
+  or(c,a,b);
+endmodule
+
+TESTBENCH:
+
+module or_gate2_tb();
+  reg x,y;
+  wire z;
+  or_gate2 dut (z,x,y);
+  initial
+    begin
+      $dumpfile("or_gate2.vcd");
+      $dumpvars();
+      $display("a b|c");
+      $monitor("%b %b | %b",x,y,z);
+      #5 x=1'b0; y=1'b0;
+      #5 x=1'b0; y=1'b1;
+      #5 x=1'b1; y=1'b0;
+      #5 x=1'b1; y=1'b1;
+      #5 $finish;
+    end
+endmodule
+
+RESULT:
+
+a b|c
+x x | x
+0 0 | 0
+0 1 | 1
+1 0 | 1
+1 1 | 1
