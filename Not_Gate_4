@@ -1,0 +1,40 @@
+CODE:
+
+module not_gate4(a,b);
+  input a;
+  output reg b;
+  always@(*)
+    begin
+      if(a==1'b0)
+        begin
+          b=1'b1;
+        end
+      else
+        b=1'b0;
+    end
+endmodule
+
+TESTBENCH:
+
+module not_gate4_tb();
+  reg x;
+  wire y;
+  not_gate4 dut (x,y);
+  initial
+    begin
+      $dumpfile("not_gate4.vcd");
+      $dumpvars();
+      $display("x | y");
+      $monitor("%b | %b",x,y);
+      #5 x=1'b0;
+      #5 x=1'b1;
+      #5 $finish;
+    end
+endmodule
+
+RESULT:
+
+x | y
+x | x
+0 | 1
+1 | 0
