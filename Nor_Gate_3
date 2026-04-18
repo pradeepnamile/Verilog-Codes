@@ -1,0 +1,44 @@
+CODE:
+
+module nor_gate3(z,x,y);
+  input x,y;
+  output reg z;
+  always@(*)
+    begin
+      if(x==1'b0 && y==1'b0)
+        begin
+          z=1'b1;
+        end
+      else
+        z=1'b0;
+    end
+endmodule
+
+TESTBENCH:
+
+module nor_gate3_tb();
+  reg a,b;
+  wire c;
+  nor_gate3 dut (c,a,b);
+  initial
+    begin
+      $dumpfile("nor_gate3.vcd");
+      $dumpvars();
+      $display("a b | c");
+      $monitor("%b %b | %b",a,b,c);
+      #5 a=1'b0; b=1'b0;
+      #5 a=1'b0; b=1'b1;
+      #5 a=1'b01; b=1'b0;
+      #5 a=1'b1; b=1'b1;
+      #5 $finish;
+    end
+endmodule
+
+RESULT:
+
+a b | c
+x x | x
+0 0 | 1
+0 1 | 0
+1 0 | 0
+1 1 | 0
