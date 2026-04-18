@@ -1,0 +1,30 @@
+CODE:
+
+module not_gate1(a,b);
+  input a;
+  output b;
+  assign b=~a;
+endmodule
+TESTBENCH:
+
+module not_gate1_tb();
+  reg x;
+  wire y;
+  not_gate1 dut (x,y);
+  initial
+    begin
+      $dumpfile("not_gate1.vcd");
+      $dumpvars();
+      $display("x | y");
+      $monitor("%b | %b",x,y);
+      #5 x=1'b0;
+      #5 x=1'b1;
+      #5 $finish;
+    end
+endmodule
+
+RESULT:
+x | y
+x | x
+0 | 1
+1 | 0
