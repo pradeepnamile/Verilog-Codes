@@ -1,0 +1,39 @@
+CODE:
+
+module nand_gate4(z,x,y);
+  input x,y;
+  output reg z;
+  always@(*)
+    begin
+      z=~(x&y);
+    end
+endmodule
+
+TESTBENCH:
+
+module nand_gate4_tb();
+  reg a,b;
+  wire c;
+  nand_gate4 dut (c,a,b);
+  initial
+    begin
+      $dumpfile("nand_gate4.vcd");
+      $dumpvars();
+      $display("a b | c");
+      $monitor("%b %b | %b ",a,b,c);
+      #5 a=1'b0; b=1'b0;
+      #5 a=1'b0; b=1'b1;
+      #5 a=1'b1; b=1'b0;
+      #5 a=1'b1; b=1'b1;
+      #5 $finish;
+    end
+endmodule
+
+RESULT:
+
+a b | c
+x x | x 
+0 0 | 1 
+0 1 | 1 
+1 0 | 1 
+1 1 | 0 
