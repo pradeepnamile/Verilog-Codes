@@ -1,0 +1,35 @@
+CODE:
+
+module not_gate3(a,b);
+  input a;
+  output reg b;
+  always@(*)
+    begin
+      b=~a;
+    end
+endmodule
+
+TESTBENCH:
+
+module not_gate3_tb();
+  reg x;
+  wire y;
+  not_gate3 dut (x,y);
+  initial
+    begin
+      $dumpfile("not_gate3.vcd");
+      $dumpvars();
+      $display("x | y");
+      $monitor("%b | %b",x,y);
+      #5 x=1'b0;
+      #5 x=1'b1;
+      #5 $finish;
+    end
+endmodule
+
+RESULT:
+
+x | y
+x | x
+0 | 1
+1 | 0
