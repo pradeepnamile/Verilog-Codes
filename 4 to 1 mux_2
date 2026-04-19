@@ -1,0 +1,103 @@
+CODE:
+
+module _4to1mux_2(input a,b,c,d,s0,s1,output reg y);
+  always @ (*)
+    begin
+      if({s0,s1}==00)
+        y=a;
+      else if ({s0,s1}==01)
+        y=b;
+      else if ({s0,s1}==10)
+        y=c;
+      else
+        y=d;
+    end
+endmodule
+
+TESTBENCH:
+
+module _4to1mux_2_tb();
+  reg A,B,C,D,S0,S1;
+  wire Y;
+  integer i;
+  _4to1mux_2 dut (A,B,C,D,S0,S1,Y);
+  initial
+    begin
+      $dumpfile("_4to1mux_2.vcd");
+      $dumpvars();
+      $monitor("At Time:%0t | A=%b B=%b C=%b D=%b | S0=%b S1=%b | Y=%b",$time,A,B,C,D,S0,S1,Y);
+      for(i=0;i<64;i=i+1)
+        begin
+          {A,B,C,D,S0,S1}=i;#5;
+        end
+      #5 $finish;
+    end
+endmodule
+
+RESULT:
+
+At Time:0 | A=0 B=0 C=0 D=0 | S0=0 S1=0 | Y=0
+At Time:5 | A=0 B=0 C=0 D=0 | S0=0 S1=1 | Y=0
+At Time:10 | A=0 B=0 C=0 D=0 | S0=1 S1=0 | Y=0
+At Time:15 | A=0 B=0 C=0 D=0 | S0=1 S1=1 | Y=0
+At Time:20 | A=0 B=0 C=0 D=1 | S0=0 S1=0 | Y=0
+At Time:25 | A=0 B=0 C=0 D=1 | S0=0 S1=1 | Y=0
+At Time:30 | A=0 B=0 C=0 D=1 | S0=1 S1=0 | Y=1
+At Time:35 | A=0 B=0 C=0 D=1 | S0=1 S1=1 | Y=1
+At Time:40 | A=0 B=0 C=1 D=0 | S0=0 S1=0 | Y=0
+At Time:45 | A=0 B=0 C=1 D=0 | S0=0 S1=1 | Y=0
+At Time:50 | A=0 B=0 C=1 D=0 | S0=1 S1=0 | Y=0
+At Time:55 | A=0 B=0 C=1 D=0 | S0=1 S1=1 | Y=0
+At Time:60 | A=0 B=0 C=1 D=1 | S0=0 S1=0 | Y=0
+At Time:65 | A=0 B=0 C=1 D=1 | S0=0 S1=1 | Y=0
+At Time:70 | A=0 B=0 C=1 D=1 | S0=1 S1=0 | Y=1
+At Time:75 | A=0 B=0 C=1 D=1 | S0=1 S1=1 | Y=1
+At Time:80 | A=0 B=1 C=0 D=0 | S0=0 S1=0 | Y=0
+At Time:85 | A=0 B=1 C=0 D=0 | S0=0 S1=1 | Y=1
+At Time:90 | A=0 B=1 C=0 D=0 | S0=1 S1=0 | Y=0
+At Time:95 | A=0 B=1 C=0 D=0 | S0=1 S1=1 | Y=0
+At Time:100 | A=0 B=1 C=0 D=1 | S0=0 S1=0 | Y=0
+At Time:105 | A=0 B=1 C=0 D=1 | S0=0 S1=1 | Y=1
+At Time:110 | A=0 B=1 C=0 D=1 | S0=1 S1=0 | Y=1
+At Time:115 | A=0 B=1 C=0 D=1 | S0=1 S1=1 | Y=1
+At Time:120 | A=0 B=1 C=1 D=0 | S0=0 S1=0 | Y=0
+At Time:125 | A=0 B=1 C=1 D=0 | S0=0 S1=1 | Y=1
+At Time:130 | A=0 B=1 C=1 D=0 | S0=1 S1=0 | Y=0
+At Time:135 | A=0 B=1 C=1 D=0 | S0=1 S1=1 | Y=0
+At Time:140 | A=0 B=1 C=1 D=1 | S0=0 S1=0 | Y=0
+At Time:145 | A=0 B=1 C=1 D=1 | S0=0 S1=1 | Y=1
+At Time:150 | A=0 B=1 C=1 D=1 | S0=1 S1=0 | Y=1
+At Time:155 | A=0 B=1 C=1 D=1 | S0=1 S1=1 | Y=1
+At Time:160 | A=1 B=0 C=0 D=0 | S0=0 S1=0 | Y=1
+At Time:165 | A=1 B=0 C=0 D=0 | S0=0 S1=1 | Y=0
+At Time:170 | A=1 B=0 C=0 D=0 | S0=1 S1=0 | Y=0
+At Time:175 | A=1 B=0 C=0 D=0 | S0=1 S1=1 | Y=0
+At Time:180 | A=1 B=0 C=0 D=1 | S0=0 S1=0 | Y=1
+At Time:185 | A=1 B=0 C=0 D=1 | S0=0 S1=1 | Y=0
+At Time:190 | A=1 B=0 C=0 D=1 | S0=1 S1=0 | Y=1
+At Time:195 | A=1 B=0 C=0 D=1 | S0=1 S1=1 | Y=1
+At Time:200 | A=1 B=0 C=1 D=0 | S0=0 S1=0 | Y=1
+At Time:205 | A=1 B=0 C=1 D=0 | S0=0 S1=1 | Y=0
+At Time:210 | A=1 B=0 C=1 D=0 | S0=1 S1=0 | Y=0
+At Time:215 | A=1 B=0 C=1 D=0 | S0=1 S1=1 | Y=0
+At Time:220 | A=1 B=0 C=1 D=1 | S0=0 S1=0 | Y=1
+At Time:225 | A=1 B=0 C=1 D=1 | S0=0 S1=1 | Y=0
+At Time:230 | A=1 B=0 C=1 D=1 | S0=1 S1=0 | Y=1
+At Time:235 | A=1 B=0 C=1 D=1 | S0=1 S1=1 | Y=1
+At Time:240 | A=1 B=1 C=0 D=0 | S0=0 S1=0 | Y=1
+At Time:245 | A=1 B=1 C=0 D=0 | S0=0 S1=1 | Y=1
+At Time:250 | A=1 B=1 C=0 D=0 | S0=1 S1=0 | Y=0
+At Time:255 | A=1 B=1 C=0 D=0 | S0=1 S1=1 | Y=0
+At Time:260 | A=1 B=1 C=0 D=1 | S0=0 S1=0 | Y=1
+At Time:265 | A=1 B=1 C=0 D=1 | S0=0 S1=1 | Y=1
+At Time:270 | A=1 B=1 C=0 D=1 | S0=1 S1=0 | Y=1
+At Time:275 | A=1 B=1 C=0 D=1 | S0=1 S1=1 | Y=1
+At Time:280 | A=1 B=1 C=1 D=0 | S0=0 S1=0 | Y=1
+At Time:285 | A=1 B=1 C=1 D=0 | S0=0 S1=1 | Y=1
+At Time:290 | A=1 B=1 C=1 D=0 | S0=1 S1=0 | Y=0
+At Time:295 | A=1 B=1 C=1 D=0 | S0=1 S1=1 | Y=0
+At Time:300 | A=1 B=1 C=1 D=1 | S0=0 S1=0 | Y=1
+At Time:305 | A=1 B=1 C=1 D=1 | S0=0 S1=1 | Y=1
+At Time:310 | A=1 B=1 C=1 D=1 | S0=1 S1=0 | Y=1
+At Time:315 | A=1 B=1 C=1 D=1 | S0=1 S1=1 | Y=1
+testbench.sv:17: $finish called at 325 (1s)
