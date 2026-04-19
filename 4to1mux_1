@@ -4,13 +4,13 @@ module _4to1mux_1(input a,b,c,d,s0,s1,output reg y);
   always@(*)
     begin
       case({s0,s1})
-        00:
+        2'b00:
         	y=a;
-      	01:
+      	2'b01:
         	y=b;
-      	10:
+      	2'b10:
         	y=c;
-      	11:
+      	2'b11:
        		y=d;
       endcase
     end
