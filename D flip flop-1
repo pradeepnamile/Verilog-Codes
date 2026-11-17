@@ -1,0 +1,35 @@
+code:
+module dff_1(d,clk,q);
+input d,clk;
+output reg q;
+always@(posedge clk)
+begin
+q<=d;
+end
+endmodule
+
+
+
+  testbench:
+module dff_1_tb();
+reg clk,d;
+wire q;
+dff_1 dut (.d(d),.clk(clk),.q(q));
+initial 
+begin
+clk=1'b0;
+forever #5 clk=~clk;
+end
+initial
+begin
+$monitor("at time=%t | d=%b | clk=%b | q=%b |",$time,d,clk,q);
+d=1'b0;
+#5 d=1'b1;
+#5 d=1'b1;
+#5 d=1'b1;
+#5 d=1'b1;
+#5 d=1'b0;
+#5 d=1'b1;#5;
+$finish;
+end
+endmodule
