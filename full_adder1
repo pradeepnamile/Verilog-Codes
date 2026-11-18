@@ -1,0 +1,33 @@
+code:
+
+module full_add1(a,b,ci,s,co);
+input a,b,ci;
+output s,co;
+wire a1,a2,a3,b1,a4;
+xor(a4,a,b);
+xor(s,a4,ci);
+and(a1,a,b);
+and(a2,a,ci);
+and(a3,b,ci);
+or(b1,a1,a2);
+or(co,b1,a3);
+endmodule
+
+
+testbench:
+
+module full_add_tb();
+reg x,y,z;
+wire p,k;
+integer i;
+full_add dut (.a(x),.b(y), .cin(z), .cout(p), .s(k));
+initial
+begin
+$monitor("At time :%0t | a=%b | b=%b | cin=%b | s=%b | cout=%b |",$time,x,y,z,k,p);
+for (i=0;i<8;i=i+1)
+begin
+{x,y,z}=i;#5;
+end
+$finish;
+end
+endmodule
