@@ -1,0 +1,48 @@
+code:
+
+module full_add3(a,b,ci,s,co);
+input a,b,ci;
+output reg s,co;
+always@(*)
+begin
+if(a==1'b0&&b==1'b0&&ci==1'b0)
+begin
+s=1'b0;
+co=1'b0;
+end
+else if((a==1'b0&&b==1'b0&&ci==1'b1)||(a==1'b0&&b==1'b1&&ci==1'b0)||(a==1'b1&&b==1'b0&&ci==1'b0))
+begin
+s=1'b1;
+co=1'b0;
+end
+else if((a==1'b0&&b==1'b1&&ci==1'b1)||(a==1'b1&&b==1'b1&&ci==1'b0)||(a==1'b1&&b==1'b0&&ci==1'b1))
+begin
+s=1'b0;
+co=1'b1;
+end
+else if(a==1'b1 &&b==1'b1 && ci==1'b1)
+begin
+s=1'b1;
+co=1'b1;
+end
+end
+endmodule
+
+
+testbench:
+
+module full_add_tb();
+reg x,y,z;
+wire p,k;
+integer i;
+full_add dut (.a(x),.b(y), .cin(z), .cout(p), .s(k));
+initial
+begin
+$monitor("At time :%0t | a=%b | b=%b | cin=%b | s=%b | cout=%b |",$time,x,y,z,k,p);
+for (i=0;i<8;i=i+1)
+begin
+{x,y,z}=i;#5;
+end
+$finish;
+end
+endmodule
