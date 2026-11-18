@@ -1,0 +1,38 @@
+code:
+
+module encod8_3(input [7:0]i,output reg [2:0]out);
+always@(*)begin
+case(i)
+8'd1:out=3'd0;
+8'd2:out=3'd1;
+8'd4:out=3'd2;
+8'd8:out=3'd3;
+8'd16:out=3'd4;
+8'd32:out=3'd5;
+8'd64:out=3'd6;
+8'd128:out=3'd7;
+default:out=3'd0;
+endcase
+end
+endmodule
+
+
+testbench:
+
+module encod8_3_tb();
+reg [7:0]n;
+wire [2:0]o;
+encod8_3 dut (.i(n),.out(o));
+initial
+begin
+n=8'b00000001;#5;
+n=8'b00000010;#5;
+n=8'b00000100;#5;
+n=8'b00001000;#5;
+n=8'b00010000;#5;
+n=8'b00100000;#5;
+n=8'b01000000;#5;
+n=8'b10000000;#5;
+$finish;
+end
+endmodule
