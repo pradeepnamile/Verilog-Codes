@@ -1,0 +1,26 @@
+code:
+
+module full_add(a,b,cin,cout,s);
+input a,b,cin;
+output cout,s;
+assign s=a^b^cin;
+assign cout=(a&b)|(a&cin)|(b&cin);
+endmodule
+
+testbench:
+
+module full_add_tb();
+reg x,y,z;
+wire p,k;
+integer i;
+full_add dut (.a(x),.b(y), .cin(z), .cout(p), .s(k));
+initial
+begin
+$monitor("At time :%0t | a=%b | b=%b | cin=%b | s=%b | cout=%b |",$time,x,y,z,k,p);
+for (i=0;i<8;i=i+1)
+begin
+{x,y,z}=i;#5;
+end
+$finish;
+end
+endmodule
