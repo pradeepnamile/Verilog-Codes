@@ -1,0 +1,27 @@
+code:
+
+module alu16bit(input [15:0]a,[15:0]b,output sign,zero,carry,parity,overflow,[15:0]out);
+assign {carry,out}=a+b;
+assign sign=out[15];
+assign zero= ~|out;
+assign parity=~^out;
+assign overflow=(a[15]&b[15]&~out[15])|(~a[15]&~b[15]&out[15]);
+endmodule
+
+testbench:
+
+module alu16bit_tb();
+reg [15:0]x,y;
+wire [15:0]z;
+wire s,zr,cy,p,ov;
+alu16bit dut(.a(x),.b(y),.out(z),.carry(cy),.zero(zr),.parity(p),.overflow(ov),.sign(s));
+initial
+begin
+$monitor("at time=%t | a=%b |b=%b |out=%b|carry=%b|overflow=%b|zero=%b|sign=%b|parity=%b|",$time,x,y,z,cy,ov,zr,s,p);
+#5 x=16'h8fff;y=16'h8000;#5;
+x=16'hfffe;y=16'h0002;#5;
+x=16'haaaa;y=16'h5555;#5;
+x=16'h8ff5;y=16'h8020;#5;
+$finish;
+end
+endmodule
