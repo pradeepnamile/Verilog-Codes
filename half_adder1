@@ -1,0 +1,25 @@
+code:
+
+module half_add(a,b,s,c);
+input a,b;
+output s,c;
+assign s=a^b;
+assign c=a&b;
+endmodule
+
+
+testbench:
+
+module half_add_tb();
+reg x,y;
+wire z,k;
+half_add dut(.a(x), .b(y), .s(z), .c(k));
+initial
+begin
+x=1'b0;y=1'b0;#3
+x=1'b0;y=1'b1;#3
+x=1'b1;y=1'b0;#3
+x=1'b1;y=1'b1;#3
+$finish;
+end
+endmodule
