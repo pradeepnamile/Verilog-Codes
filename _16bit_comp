@@ -1,0 +1,29 @@
+code:
+
+module comp16bit(a,b,lt,gt,eq);
+parameter bit=16;
+input [bit-1:0]a,b;
+output reg lt,gt,eq;
+always@(*)begin
+lt=0;gt=0;eq=0;
+if(a>b)gt=1;
+else if(a<b) lt=1;
+else eq=1;
+end
+endmodule
+
+testbench:
+
+module comp16bit_tb();
+reg [15:0]x,y;
+wire ll,gg,ee;
+comp16bit dut (.a(x),.b(y),.lt(ll),.gt(gg),.eq(ee));
+initial
+begin
+#5 x=16'hffff;y=16'hffff;#5;
+x=16'hfff1;y=16'hffff;#5;
+x=16'hffff;y=16'hfff1;#5;
+x=16'hf0ff;y=16'h0fff;#5;
+$finish;
+end
+endmodule
