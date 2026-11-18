@@ -1,0 +1,26 @@
+code:
+
+module demux1_2(i,s,a,b);
+input i,s;
+output a,b;
+assign a=(~s)&i;
+assign b=s&i;
+endmodule
+
+
+testbench:
+
+module demux1_2_tb();
+reg n,l;
+wire x,y;
+demux1_2 dut (.i(n), .s(l), .a(x), .b(y));
+initial
+begin
+$monitor("at time=%2d | i=%b | s=%b | a=%b | b=%b |",$time,n,l,x,y);
+n=1'b0;l=1'b0;#5
+n=1'b0;l=1'b1;#5
+n=1'b1;l=1'b0;#5
+n=1'b1;l=1'b1;#5
+$finish;
+end
+endmodule
