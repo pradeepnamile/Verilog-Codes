@@ -1,0 +1,28 @@
+code:
+
+module full_sub(a,b,c,d,bo);
+input a,b,c;
+output d,bo;
+wire x,y,z;
+half_sub hs1(a,b,x,y);
+half_sub hs2(x,c,d,z);
+or(bo,z,y);
+endmodule
+
+testbench:
+
+module full_sub_tb();
+reg x,y,z;
+wire f,o;
+integer i;
+full_sub dut (.a(x), .b(y), .c(z), .d(f), .bo(o));
+initial
+begin
+$monitor("at time:%2d | a=%b | b=%b | c=%b | d=%b | bo=%b |",$time ,x,y,z,f,o);
+for(i=0;i<8;i=i+1)
+begin
+{x,y,z}=i;#5;
+end
+$finish;
+end
+endmodule
