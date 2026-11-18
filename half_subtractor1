@@ -1,0 +1,24 @@
+code:
+
+module half_sub(a,b,d,bo);
+input a,b;
+output d,bo;
+assign d=a^b;
+assign bo=(~a)&b;
+endmodule
+
+testbench:
+
+module half_sub_tb();
+reg x,y;
+wire f,o;
+half_sub dut (.a(x), .b(y), .d(f), .bo(o));
+initial
+begin
+x=1'b0;y=1'b0;#5
+x=1'b0;y=1'b1;#5
+x=1'b1;y=1'b0;#5
+x=1'b1;y=1'b1;#5
+$finish;
+end
+endmodule
